@@ -3,6 +3,8 @@ require 'ruby-progressbar/output'
 class   ProgressBar
 module  Outputs
 class   Null < Output
+  DEFAULT_FORMAT_STRING = '%t: |%B|'.freeze
+  
   alias refresh_with_format_change with_refresh
 
   def clear;        end
@@ -18,11 +20,11 @@ class   Null < Output
   end
 
   def default_format
-    ''
+    DEFAULT_FORMAT_STRING
   end
 
-  def resolve_format(_format)
-    ''
+  def resolve_format(other_format)
+    other_format || default_format
   end
 
   def eol
